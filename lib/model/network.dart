@@ -1,32 +1,20 @@
 import 'dart:convert';
-import 'package:http/http.dart';
 
-// Network Class to Get Data as a decoded JSon data from API URL
+import 'package:earthquake_app/model/earthquake.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
-class Network {
-  final String url;
+Future<List<Earthquake>> fetchData(http.Client client) async {
+  final response = await client
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
 
-  Network(this.url);
-
-  Future fetchData() async {
-    Response response = await get(Uri.parse(url)); // check here
-
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      print(response.statusCode);
-    }
-  }
+  // Use the compute function to run parsePhotos in a separate isolate.
+  return compute(parseData, response.body);
 }
 
-Future getData() async {
-  var data;
-  String url = "https://api.orhanaydogdu.com.tr/deprem/live.php?limit=5";
-  Network network = Network(url);
-  data = network.fetchData();
-  data.then((value) {
-    //print(value["USD"]["Buying"]);
-  });
+// A function that converts a response body into a List<Photo>.
+List<Earthquake> parseData(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
-  return data;
+  return parsed.map<Earthquake>((json) => Earthquake.fromJson(json)).toList();
 }
