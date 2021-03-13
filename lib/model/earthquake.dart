@@ -34,7 +34,7 @@ class Earthquake {
       mag: json['mag'] as double,
       lng: json['lng'] as double,
       lat: json['lat'] as double,
-      loc: json['loc'] as String,
+      loc: json['lokasyon'] as String,
       depth: json['depth'] as double,
       coordinates: json['coordinates'] as String,
       title: json['title'] as String,
