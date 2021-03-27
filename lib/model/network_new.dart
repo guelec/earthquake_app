@@ -24,7 +24,7 @@ class NetworkNew {
 
 Future getData() async {
   var data;
-  String url = "https://api.orhanaydogdu.com.tr/deprem/live.php?limit=5";
+  String url = "https://api.orhanaydogdu.com.tr/deprem/live.php?limit=20";
   NetworkNew network = NetworkNew(url);
   data = network.fetchData();
   data.then((value) {
