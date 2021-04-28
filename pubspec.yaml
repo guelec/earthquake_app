@@ -31,6 +31,8 @@ dependencies:
   splashscreen:
   http:
 
+  flutter_map:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

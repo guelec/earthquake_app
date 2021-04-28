@@ -13,6 +13,22 @@ class Earthquake {
   final String hash;
   final String hash2;
 
+
+  Earthquake.name(
+      this.mag,
+      this.lng,
+      this.lat,
+      this.loc,
+      this.depth,
+      this.coordinates,
+      this.title,
+      this.rev,
+      this.timestamp,
+      this.date_stamp,
+      this.date,
+      this.hash,
+      this.hash2);
+
   Earthquake({
     this.mag,
     this.lng,

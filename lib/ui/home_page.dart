@@ -1,6 +1,7 @@
 
 import 'package:earthquake_app/model/network_new.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
@@ -13,8 +14,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     //fetchData(http.Client());
     return Scaffold(
+      floatingActionButton: FloatingActionButton(child: Icon(Icons.map_outlined),
+        onPressed: () => Navigator.of(context).pushNamed("/map_screen"),),
         appBar: AppBar(
-          title: Text("Title"),
+          title: Text("Kandilli Son Depremler"),
         ),
         body: FutureBuilder(
             future: getData(),
@@ -37,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                         );
                         */
                       })
-                  : Container(child: CircularProgressIndicator());
+                  : Center(child: Container(child: CircularProgressIndicator()));
             }));
   }
   Widget cardDesign(data){
@@ -45,7 +48,7 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.amber,
+          //color: Colors.amber,
           borderRadius: BorderRadius.circular(20)
         ),
         height: MediaQuery.of(context).size.height * 0.20,
@@ -59,7 +62,7 @@ class _HomePageState extends State<HomePage> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Container(
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.blueGrey),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), /*color: Colors.blueGrey*/),
 
                 child: Row(
 
@@ -71,8 +74,12 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.15,
                           height: MediaQuery.of(context).size.width * 0.15,
-                          color: Colors.amberAccent,
-                          child: Center(child: Text(data["mag"].toString())),
+                          color: Colors.greenAccent,
+                          child: Center(child: Text(data["mag"].toString(), style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                          ),)),
                         ),
                       ),
                     ),
@@ -81,12 +88,11 @@ class _HomePageState extends State<HomePage> {
                       width: MediaQuery.of(context).size.width * 0.65,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [Text(data["lokasyon"].toString()),
                         Text(data["date"].toString()),
                         Text(data["depth"].toString()+" KMm"),
-                        Text("Hey Soul Sister"),
-                        Text("deneme")],
+                        ],
 
                       ),
                     )
