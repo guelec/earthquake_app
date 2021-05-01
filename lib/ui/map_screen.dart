@@ -1,4 +1,5 @@
 import 'package:earthquake_app/model/network_new.dart';
+import 'package:earthquake_app/ui/details_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,16 +29,28 @@ class _MapScreenState extends State<MapScreen> {
         layers: [
           TileLayerOptions(
               urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              subdomains: ['a', 'b', 'c']
+              subdomains: ['a', 'b', 'c'],
+
           ),
           MarkerLayerOptions(
             markers:
               List.generate(snapshot.data["result"].length, (index) => Marker(
-                width: 80.0,
-                height: 80.0,
+                width: MediaQuery.of(context).size.width * 0.2,
+                height: MediaQuery.of(context).size.width * 0.2,
                 point: latLng.LatLng(snapshot.data["result"][index]["lat"], snapshot.data["result"][index]["lng"]),
-                builder: (ctx) => InkWell(onTap: () => debugPrint("Hi"),
-                    child: Container(child: Icon(Icons.location_on,color: Colors.red, size: 36,)))
+                builder: (ctx) => InkWell(onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => DetailsScreen(data: snapshot.data["result"][index])));
+                },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.1,
+                    height: MediaQuery.of(context).size.width * 0.1,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red.withOpacity(0.5)
+                    ),
+                    child: Center(child: Icon(Icons.location_on,color: Colors.black,
+                      size: MediaQuery.of(context).size.width * 0.05,),),
+                    ))
               ))
             ,
           ),

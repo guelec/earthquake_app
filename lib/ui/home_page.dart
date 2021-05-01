@@ -1,5 +1,8 @@
 
+import 'dart:async';
+
 import 'package:earthquake_app/model/network_new.dart';
+import 'package:earthquake_app/ui/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -10,14 +13,41 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    super.initState();
+    //futureApi = apiCall();
+    const oneSec = const Duration(seconds: 20);  // We animate fade transition every second
+    new Timer.periodic(oneSec, (Timer t) {
+      setState(() {
+        getData();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    var w = MediaQuery.of(context).size.width;
+    var h = MediaQuery.of(context).size.height;
+
     //fetchData(http.Client());
     return Scaffold(
       floatingActionButton: FloatingActionButton(child: Icon(Icons.map_outlined),
         onPressed: () => Navigator.of(context).pushNamed("/map_screen"),),
         appBar: AppBar(
           title: Text("Kandilli Son Depremler"),
+          actions: [
+              IconButton(
+                icon: Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  getData();
+                },
+              ),
+          ],
         ),
         body: FutureBuilder(
             future: getData(),
@@ -25,20 +55,8 @@ class _HomePageState extends State<HomePage> {
               return snapshot.hasData
                   ? ListView.builder(
                       itemCount: snapshot.data["result"].length,
-
                       itemBuilder: (context, index) {
-                        //Earthquake eq = snapshot.data["result"][index];
                         return cardDesign(snapshot.data["result"][index]);
-                        /*
-                          Column(
-                          children: [
-                            Text(snapshot.data["result"][index].toString()),
-                            Divider(
-                              height: 200,
-                            )
-                          ],
-                        );
-                        */
                       })
                   : Center(child: Container(child: CircularProgressIndicator()));
             }));
@@ -57,7 +75,11 @@ class _HomePageState extends State<HomePage> {
           child: InkWell(
             borderRadius: BorderRadius.circular(20),
             onTap: (){
-              debugPrint("tap");
+              Navigator
+                  .of(context)
+                  .push(new MaterialPageRoute<dynamic>(builder: (BuildContext context) {
+                return new DetailsScreen(data: data);
+              }));
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
