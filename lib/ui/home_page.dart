@@ -17,12 +17,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    //futureApi = apiCall();
-    const oneSec = const Duration(seconds: 20);  // We animate fade transition every second
+    const oneSec = const Duration(seconds: 20);
     new Timer.periodic(oneSec, (Timer t) {
-      setState(() {
-        getData();
-      });
+      setState(() {});
     });
   }
 
@@ -44,7 +41,8 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  getData();
+                  setState(() {
+                  });
                 },
               ),
           ],
