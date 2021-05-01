@@ -1,16 +1,8 @@
-# earthquake_app
+# Recent Earthquakes App
 
-A new Flutter project.
+This project uses Kandilli Rasathanesi data in realtime. 50 most recent earthquakes are both listed and pinned on the map. Each earthquake has time, depth and magnitude attributes. The earthquake list screen refreshs itself every 20 seconds also manual refresh button is on appbar.
 
-## Getting Started
+## User Interface
 
-This project is a starting point for a Flutter application.
+![!earthquake_app](https://media.giphy.com/media/Q5m0gCalKBiknydtpw/giphy.gif)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
